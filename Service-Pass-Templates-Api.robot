@@ -34,8 +34,9 @@ Create a ServicePass Template API
     ${headers}=      Create Dictionary    Authorization=${access_token}    Content-Type=application/json
      ${body}=    Catenate
      ...    {
-     ...        "id": "abcd-xyzz-sdfeer0-sdflk2342558",                   ##Every time you need to create a new user
-     ...        "name": "WELCOME_NOTIFICATIONS_ab",
+     ...        #"id": "abcd-xyzz-sdfeer0-sdflk2342551987",                   ##Every time you need to create a new user
+     ...         "id":"65057428c70ee767bf246bc7",
+     ...        "name": "WELCOME_NOTIFICATIONS_DEMO",
      ...        "description": "This is description",
      ...         "zoneId": "1024",
      ...         "mccList": [
@@ -74,6 +75,26 @@ Read a ServicePass Template API
     ${status_code}=   Convert To String   ${response.status_code}
     Should Be Equal    ${status_code}      200
 
+
+
+Update a ServicePass Template API
+    [Tags]    Demo
+    Create Session   session2    ${base_url}
+    ${endpoint}      set variable     ${end_url}/${id}
+    ${body}=    Catenate
+    ...     {
+    ...        "qos":"1026"
+    ...      }
+    ${headers}=      Create Dictionary    Authorization=${access_token}    Content-Type=application/json
+    ${response}=    Put On Session    session2    ${endpoint}    data=${body}    headers=${headers}
+    Log To Console    ${response.status_code}
+    Log To Console    ${response.content}
+
+    #Validations
+    ${status_code}=    convert to string    ${response.status_code}
+    should be equal    ${status_code}    200
+
+*** Comments ***
 Delete a ServicePass Template API
     [Tags]   Demo
     Create Session    session1     ${base_url}
@@ -87,5 +108,4 @@ Delete a ServicePass Template API
     #Validations
     ${status_code}=   Convert To String   ${response.status_code}
     Should Be Equal    ${status_code}      200
-
 

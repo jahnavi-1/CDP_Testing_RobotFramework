@@ -75,7 +75,7 @@ Read an Order API
 List Orders by UserId API
     [Tags]    Demo1
     Create Session   session1    ${base_url}
-    ${endpoint}=      Set Variable    ${end_url}/userId/11
+    ${endpoint}=      Set Variable    ${end_url}/userId/${id}
     ${headers}=      Create Dictionary    Authorization=${access_token}
     ${response}=     GET On Session    session1   ${endpoint}   headers=${headers}
     Log To Console    ${response.content}
@@ -85,3 +85,5 @@ List Orders by UserId API
     should be equal    ${status_code}    200
 
     #Log
+#Cancel the order
+#Read an Invoice API.
